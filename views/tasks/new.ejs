@@ -3,11 +3,9 @@
 <h1>Tasks Calendar</h1>
 <form action="/tasks" method="POST">
     <h2>What is The Task?</h1>
-    <input type="text" name="task">
-    <h2>Any Important Notes?</h2>
-    <textarea name="notes" rows="5"></textarea>
-    <h2>Date?</h2>
-    <input type="date" name="date">
+    <input type="text" name="task" required>
+    <h2>Due Date?</h2>
+    <input type="date" name="dueDate" required min="<%= startDate %>">
     <p>Press Box if You'd Like to Be Notified for Upcoming Tasks!</p>
     <input type="checkbox">
     <br></br>

@@ -1,45 +1,82 @@
 const Task = require('../models/task');
 
+
 module.exports = {
     create,
     new: newTask,
     edit,
     update,
-    index
+    index,
+    show,
+    delete: deleteTask
 }
 
-function index(req, res){
-    Task.find({user: req.user._id}, function(err, tasks) {
-        res.render('tasks/index', { tasks });
+function deleteTask(req, res) {
+    Task.findOneAndDelete(
+        { _id: req.params.id, user: req.user._id }, function (err) {
+            res.redirect('/tasks');
+        }
+    );
+}
+
+function show(req, res) {
+    Task.findById(req.params.id, function (err, task) {
+        res.render("tasks/show", { task });
     });
+}
+
+function index(req, res) {
+    let yr = parseInt(req.query.yr);
+    let mo = parseInt(req.query.mo);
+    if (!yr) {
+        const today = new Date();
+        yr = today.getFullYear();
+        mo = today.getMonth();
+    }
+    const startDate = new Date(yr, mo, 1, 0, 0);
+    const endDate = new Date(yr, parseInt(mo) + 1, 1, 0, 0);
+    console.log(startDate, endDate);
+    Task.find({
+        user: req.user._id,
+        dueDate: { $gte: startDate },
+        dueDate: { $lt: endDate }
+    })
+        .sort("dueDate")
+        .exec(function (err, tasks) {
+            res.render('tasks/index', { tasks, startDate, yr, mo });
+        });
 }
 
 function update(req, res) {
     Task.findOneAndUpdate(
-        {_id: req.params.id, user: req.user._id},
+        { _id: req.params.id, user: req.user._id },
         req.body,
-        {new: true},
-        function(err, task) {
-          if (err || !task) return res.redirect('/tasks');
-          res.redirect('tasks');
+        { new: true },
+        function (err, task) {
+            if (err || !task) return res.redirect('/tasks');
+            res.redirect('tasks');
         }
-      );
+    );
 }
 
 function edit(req, res) {
-    Task.findOne({_id: req.params.id, userRecommending: req.user._id}, function(err, book) {
+    Task.findOne({ _id: req.params.id, userRecommending: req.user._id }, function (err, book) {
         if (err || !task) return res.redirect('/tasks');
-        res.render('tasks/edit', {task});
-      });
+        res.render('tasks/edit', { task });
+    });
 }
 
 function newTask(req, res) {
-    res.render('tasks/new')
+    let startDate = new Date();
+    startDate = startDate.toISOString().slice(0, 10);
+    res.render('tasks/new', { startDate });
 }
 
 function create(req, res) {
-    Task.create(req.body, function(err, task) {
+    req.body.user = req.user._id;
+    const s = req.body.dueDate;
+    req.body.dueDate = `${s.substr(5, 2)}-${s.substr(8, 2)}-${s.substr(0, 4)}`;
+    Task.create(req.body, function (err, task) {
         res.redirect("/tasks");
     });
-    
 }

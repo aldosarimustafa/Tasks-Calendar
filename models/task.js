@@ -1,11 +1,19 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const taskSchema = new Schema({
-    content: {type: String, required: true},
-    user: {type: Schema.Types.ObjectId, ref: 'User'},
-  }, {
-    timestamps: true
-  });
+const noteSchema = new Schema({
+  note: { type: String, required: true },
+}, {
+  timestamps: true
+});
 
-  module.exports = mongoose.model('Task', taskSchema);
+const taskSchema = new Schema({
+  task: { type: String, required: true },
+  user: { type: Schema.Types.ObjectId, ref: 'User' },
+  dueDate: { type: Date, required: true },
+  notes: [noteSchema]
+}, {
+  timestamps: true
+});
+
+module.exports = mongoose.model('Task', taskSchema);

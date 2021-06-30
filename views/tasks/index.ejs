@@ -1,10 +1,24 @@
 <%- include("../partials/header") %>
 
-<h1>All Tasks</h1>
+<main>
+    <h1>My Tasks</h1>
+    <h2>
+        <a href="/tasks?yr=<%= mo === 0 ? yr - 1 : yr %>&mo=<%= mo === 0 ? 11 : mo - 1 %>">◀</a>
+        For the Month of <%= `${startDate.toDateString().slice(4, 7)}, ${startDate.toDateString().slice(11)}` %>
+        <a href="/tasks?yr=<%= mo === 11 ? yr + 1 : yr %>&mo=<%= mo === 11 ? 0 : mo + 1 %>">▶</a>
+    </h2>
 <% if (tasks.length) { %>
-
+    <% tasks.forEach(function(task){ %>
+        <a href="/tasks/<%= task._id %>"> 
+            <article class="task">
+                <div><%= task.task %></div>
+                <div><%= task.dueDate.toLocaleDateString() %></div>
+            </article>
+        </a>
+    <% }) %>
 <% } else { %>
     <h3>You Have No Tasks</h3>
 <% } %>
+</main>
 
 <%- include("../partials/footer") %>

@@ -1,0 +1,30 @@
+<%- include("../partials/header") %>
+
+    <main>
+        <h1>Task Detail</h1>
+        <article class="task-detail">
+            <div>
+                <%= task.task %>
+            </div>
+            <div>
+                <%= task.dueDate.toLocaleDateString() %>
+            </div>
+            <div>
+                <form action="/tasks/<%= task._id %>?_method=DELETE" method="POST">
+                    <button type="submit">X</button>
+                </form>
+            </div>
+        </article>
+        <hr>
+        
+        <h2>Notes:</h2>
+        <form action="/tasks/:id/notes"></form>
+        <% if (task.notes.length) { %>
+
+        <% } else { %>
+            <h5>There Are No Notes</h5>
+        <% } %>
+
+    </main>
+
+    <%- include("../partials/footer") %>
