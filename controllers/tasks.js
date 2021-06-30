@@ -4,12 +4,19 @@ module.exports = {
     create,
     new: newTask,
     edit,
-    update
+    update,
+    index
+}
+
+function index(req, res){
+    Task.find({user: req.user._id}, function(err, tasks) {
+        res.render('tasks/index', { tasks });
+    });
 }
 
 function update(req, res) {
     Task.findOneAndUpdate(
-        {_id: req.params.id, userRecommending: req.user._id},
+        {_id: req.params.id, user: req.user._id},
         req.body,
         {new: true},
         function(err, task) {
@@ -27,7 +34,7 @@ function edit(req, res) {
 }
 
 function newTask(req, res) {
-    res.render('tasks/add')
+    res.render('tasks/new')
 }
 
 function create(req, res) {
