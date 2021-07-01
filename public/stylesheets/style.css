@@ -12,6 +12,10 @@ a {
   text-decoration: none;
 }
 
+.login img {
+  height: 30px;
+}
+
 main {
   height: 100%;
   display: flex;
@@ -62,3 +66,4 @@ article.task-detail {
 article.task-detail > div:nth-child(3) {
   background-color: rgb(137, 137, 232);
 }
+
