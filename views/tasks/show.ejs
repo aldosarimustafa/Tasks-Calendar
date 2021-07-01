@@ -23,13 +23,16 @@
             <input type="text" name="note">
             <button type="submit">Add Note</button>
         </form>
-        <% if (tasks.notes.length) { %>
-            <% tasks.notes.forEach(function(task) { %>
+        <% if (task.notes.length) { %>
+            <% task.notes.forEach(function(task) { %>
                         <article class="note">
                             <div><%= task.note %></div>
                         </article>
+                            <form action="/notes/<%= task._id %>?_method=DELETE" method="POST">
+                                <button type="submit">X</button>
+                            </form>
         <% }); %>
-        <% else { %>
+        <% } else { %>
             <h5>There Are No Notes</h5>
         <% } %>
 
