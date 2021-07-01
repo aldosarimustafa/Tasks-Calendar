@@ -1,14 +1,27 @@
 const Task = require('../models/task');
 
-
 module.exports = {
     create,
     new: newTask,
-    edit,
-    update,
     index,
     show,
-    delete: deleteTask
+    delete: deleteTask,
+    edit,
+    update
+}
+
+function update(req, res) {
+    Task.findByIdAndUpdate(req.params.id, req.body, {new: true}, function(err, task) {
+        if (err || !task) return res.redirect('/tasks');
+        res.redirect(`/tasks/${task._id}`);
+    });
+}
+
+function edit(req, res) {
+    Task.findById({_id: req.params.id, user: req.user._id}, function(err, task) {
+        if (err || !task) return res.redirect('/tasks');
+        res.render('tasks/edit', { task });
+      });
 }
 
 function deleteTask(req, res) {
@@ -45,25 +58,6 @@ function index(req, res) {
         .exec(function (err, tasks) {
             res.render('tasks/index', { tasks, startDate, yr, mo });
         });
-}
-
-function update(req, res) {
-    Task.findOneAndUpdate(
-        { _id: req.params.id, user: req.user._id },
-        req.body,
-        { new: true },
-        function (err, task) {
-            if (err || !task) return res.redirect('/tasks');
-            res.redirect('tasks');
-        }
-    );
-}
-
-function edit(req, res) {
-    Task.findOne({ _id: req.params.id, userRecommending: req.user._id }, function (err, book) {
-        if (err || !task) return res.redirect('/tasks');
-        res.render('tasks/edit', { task });
-    });
 }
 
 function newTask(req, res) {

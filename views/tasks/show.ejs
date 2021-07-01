@@ -11,10 +11,11 @@
             </div>
             <div>
                 <form action="/tasks/<%= task._id %>?_method=DELETE" method="POST">
-                    <button type="submit">X</button>
+                    <button type="submit">⨂</button>
                 </form>
             </div>
         </article>
+        <a href="/tasks/<%= task._id %>/edit">Edit Task</a>
         <hr>
         
         <h2>Notes:</h2>

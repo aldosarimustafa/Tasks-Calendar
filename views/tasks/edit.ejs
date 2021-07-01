@@ -1,0 +1,14 @@
+<%- include("../partials/header") %>
+
+<form action="/tasks/<%= task._id %>?_method=PUT" method="POST">
+    <h2>What is The Task?</h1>
+    <input type="text" name="task" value="<%= task.task %>" required>
+    <h2>Due Date?</h2>
+    <input type="datetime-local" name="dueDate" value="<%= task.dueDate %>" required>
+    <p>Press Box if You'd Like to Be Notified for Upcoming Tasks!</p>
+    <input type="checkbox">
+    <br></br>
+    <input type="submit" value="Add Task">
+</form>
+
+<%- include("../partials/footer") %>
