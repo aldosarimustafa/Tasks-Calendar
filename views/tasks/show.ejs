@@ -19,10 +19,17 @@
         <hr>
         
         <h2>Notes:</h2>
-        <form action="/tasks/:id/notes"></form>
-        <% if (task.notes.length) { %>
-
-        <% } else { %>
+        <form action="/tasks/<%= task._id %>/notes" method="POST">
+            <input type="text" name="note">
+            <button type="submit">Add Note</button>
+        </form>
+        <% if (tasks.notes.length) { %>
+            <% tasks.notes.forEach(function(task) { %>
+                        <article class="note">
+                            <div><%= task.note %></div>
+                        </article>
+        <% }); %>
+        <% else { %>
             <h5>There Are No Notes</h5>
         <% } %>
 

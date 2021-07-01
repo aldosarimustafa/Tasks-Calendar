@@ -1,4 +1,4 @@
-const Note = require('../models/tasks');
+const Task = require('../models/task');
 
 module.exports = {
     create,
@@ -6,7 +6,7 @@ module.exports = {
 }
 
 function create(req, res){
-    Note.findById(req.params.id, function(err, task){
+    Task.findById(req.params.id, function(err, task){
         task.notes.push(req.body);
         task.save(function(err){
             res.redirect(`/tasks/${task._id}`);
@@ -16,9 +16,9 @@ function create(req, res){
 
 
 function deleteNote(req, res) {
-    Note.findOne({'notes._id': req.params.id}, function(err, task) {
-        const noteSubdoc = task.notes.id(req.params.id);
-        noteSubdoc.remove();
+    Task.findOne({'notes._id': req.params.id}, function(err, task) {
+        const noteSchema = task.notes.id(req.params.id);
+        noteSchema.remove();
         task.save(function(err) {
             res.redirect(`/tasks/${task._id}`);
         })
