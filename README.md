@@ -8,10 +8,25 @@ ___
 [![](https://imgur.com/OSCZQJw.jpg)](https://youtu.be/2a_vm5wGy9M)
 
 ---
+### To Access Trello Use: https://trello.com/b/BdebAZwc/project-2-tasks-calendar
+### to Access _Tasks Calendar_ Use: https://tasks-best-calendar.herokuapp.com/
+---
 ## My User Story
 ---
 _As a user_, I want to be able to login with my personal acount and be able to add tasks and discriptions with due dates to the calendar. I would also like to be able to _delete_, _edit_, and _update_ my tasks when I need to.
 
+---
+## Technologies Used:
+- HTML 
+- CSS
+- Javascript
+- Node.js
+- MongoDB
+- Mongoose
+- Express
+- Google OAuth
+- Heroku
+- Github
 ---
 ### IceBox Items
 ---
