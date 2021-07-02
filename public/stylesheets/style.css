@@ -5,10 +5,12 @@
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   height: 100vh;
+  background-color: rgba(158, 250, 10, 0.253);
 }
 
+
 a {
-  color: #00B7FF;
+  color: #6e756a;
   text-decoration: none;
 }
 
@@ -66,4 +68,3 @@ article.task-detail {
 article.task-detail > div:nth-child(3) {
   background-color: rgb(137, 137, 232);
 }
-
